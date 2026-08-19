@@ -51,11 +51,9 @@ def run_pipeline():
                     save_location(new_lat, new_lon, new_label)
                     lat, lon, label = new_lat, new_lon, new_label
     else:
-        # Initial run setup if config.json is not found
         logger.info("No location found. Setting up location...")
         
         if not is_automated:
-            # Prompt user to enter their city name
             location_input = input("Enter city/neighborhood (e.g. Kalanki): ").replace(","," ").strip()
             lat, lon, label = get_coordinates(location_input)
 
@@ -70,7 +68,6 @@ def run_pipeline():
         report = fetch_weather_report(lat, lon, label)
         
         if report:
-            # Display report in console
             print("\n---  GENERATED REPORT ---")
             print(report)
             
