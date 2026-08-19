@@ -74,7 +74,6 @@ def run_pipeline():
             # Send mobile push alert via ntfy.sh
             send_notification(report)
 
-            # Log actual execution metrics to CSV
             log_weather_history(label, temp, us_aqi, aqi_status)
 
 def log_weather_history(location, temp, aqi, aqi_status):
