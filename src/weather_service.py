@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def fetch_weather_report(latitude,longitude,location):
-    #base URLS for open-Mateo weather and air quality APIs
+    #base URLS for open-Meteo weather and air quality APIs
     weather_url = "https://api.open-meteo.com/v1/forecast"
     aqi_url = "https://air-quality-api.open-meteo.com/v1/air-quality"
 
@@ -12,9 +12,9 @@ def fetch_weather_report(latitude,longitude,location):
     weather_params = {
         "latitude": latitude,
         "longitude": longitude,
-        "current_weather": True,
+        "current": "temperature_2m,wind_speed_10m",
         "daily": "temperature_2m_max,temperature_2m_min", # requests 7 day max/min temp
-        "timezone": "auto" #autu detects timezone based on GPS
+        "timezone": "auto" #auto detects timezone based on GPS
     }
 
     #air quality request parameters
@@ -31,9 +31,9 @@ def fetch_weather_report(latitude,longitude,location):
         w_data = w_response.json()
 
         #extracting current weather values
-        current = w_data["current_weather"]
-        temp=current["temperature"]
-        wind=current["windspeed"]
+        current = w_data["current"]
+        temp = current["temperature_2m"]
+        wind = current["wind_speed_10m"]
 
         # daily forecast list
         daily = w_data["daily"]
