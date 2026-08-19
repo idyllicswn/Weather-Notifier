@@ -14,7 +14,7 @@ def load_saved_location():
             with open(config_file,'r') as f:
                 data = json.load(f)
                 logger.info(f"Loaded configuration for '{data['location']}'")
-                return data['longitude'], data['latitude'], data['location']
+                return data['latitude'], data['longitude'], data['location']
         except Exception as e:
             logger.warning(f"Error: Could not read config file: {e}")
             return None, None, None

@@ -1,10 +1,11 @@
 import requests
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
 def send_notification(message_text):
-    NTFY_TOPIC = "idyllic-weather-alerts-006"
+    NTFY_TOPIC = os.getenv("NTFY_TOPIC", "idyllic-weather-alerts-006")
     ntfy_url = f"https://ntfy.sh/{NTFY_TOPIC}"
 
     logger.info("Dispatching push alerts to ntfy server . . . ")
