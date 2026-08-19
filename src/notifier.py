@@ -17,7 +17,7 @@ def send_notification(message_text):
             headers={
                 "Title": "Daily Weather and AQI Update",
                 "Priority": "default",
-                "Tags": "sun_behind_cloud"
+                "Tags": "cloud"
             }
         )
         response.raise_for_status()

@@ -3,16 +3,28 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Map Open-Meteo WMO weather codes to human-readable condition text
+# Map Open-Meteo WMO weather codes to human-readable condition text with emojis
 WEATHER_CODES = {
-    0: "Clear / Sunny",
-    1: "Mainly Clear", 2: "Partly Cloudy", 3: "Overcast",
-    45: "Foggy", 48: "Depositing Rime Fog",
-    51: "Light Drizzle", 53: "Moderate Drizzle", 55: "Dense Drizzle",
-    61: "Slight Rain", 63: "Moderate Rain", 65: "Heavy Rain",
-    71: "Slight Snow", 73: "Moderate Snow", 75: "Heavy Snow",
-    80: "Slight Rain Showers", 81: "Moderate Rain Showers", 82: "Violent Rain Showers",
-    95: "Thunderstorm", 96: "Thunderstorm with Hail"
+    0: "Clear / Sunny ☀️",
+    1: "Mainly Clear 🌤️", 
+    2: "Partly Cloudy ⛅", 
+    3: "Overcast ☁️",
+    45: "Foggy 🌫️", 
+    48: "Depositing Rime Fog 🌫️",
+    51: "Light Drizzle 🌧️", 
+    53: "Moderate Drizzle 🌧️", 
+    55: "Dense Drizzle 🌧️",
+    61: "Slight Rain 🌧️", 
+    63: "Moderate Rain 🌧️", 
+    65: "Heavy Rain 🌧️",
+    71: "Slight Snow 🌨️", 
+    73: "Moderate Snow 🌨️", 
+    75: "Heavy Snow 🌨️",
+    80: "Slight Rain Showers 🌦️", 
+    81: "Moderate Rain Showers 🌦️", 
+    82: "Violent Rain Showers 🌦️",
+    95: "Thunderstorm 🌩️", 
+    96: "Thunderstorm with Hail ⛈️"
 }
 
 def fetch_weather_report(latitude, longitude, location):
@@ -22,7 +34,7 @@ def fetch_weather_report(latitude, longitude, location):
     weather_params = {
         "latitude": latitude,
         "longitude": longitude,
-        "current": "temperature_2m,wind_speed_10m,weather_code", # Added weather_code
+        "current": "temperature_2m,wind_speed_10m,weather_code",
         "daily": "temperature_2m_max,temperature_2m_min",
         "timezone": "auto"
     }
@@ -43,7 +55,7 @@ def fetch_weather_report(latitude, longitude, location):
         wind = current["wind_speed_10m"]
         code = current["weather_code"]
         
-        # Look up condition string
+        # Look up condition string with emojis
         condition = WEATHER_CODES.get(code, "Unknown")
 
         daily = w_data["daily"]
