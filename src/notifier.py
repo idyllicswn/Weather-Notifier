@@ -15,9 +15,9 @@ def send_notification(message_text):
             ntfy_url,
             data=message_text,
             headers={
-                "Title": "Daily Weather and AQI Updtae",
+                "Title": "Daily Weather and AQI Update",
                 "Priority": "default",
-                "Tags": "sun_behind_cloud, mask"
+                "Tags": "sun_behind_cloud"
             }
         )
         response.raise_for_status()
