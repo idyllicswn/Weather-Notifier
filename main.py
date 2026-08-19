@@ -74,6 +74,9 @@ def run_pipeline():
             # Send mobile push alert via ntfy.sh
             send_notification(report)
 
+            # Log execution to CSV and auto-create data directory if missing
+            log_weather_history(label, "N/A", "N/A", "Report Sent")
+
 def log_weather_history(location, temp, humidity, condition):
     os.makedirs("data", exist_ok=True)
     file_path = "data/weather_history.csv"
@@ -88,4 +91,3 @@ def log_weather_history(location, temp, humidity, condition):
 
 if __name__ == "__main__":
     run_pipeline()
-
