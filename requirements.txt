@@ -1,0 +1,1 @@
+requests    # For making web API requests to Open-Meteo and ntfy.sh
