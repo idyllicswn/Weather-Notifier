@@ -64,8 +64,8 @@ def run_pipeline():
             lat, lon, label = 27.6939, 85.2817, "Kalanki, Kathmandu"
    
     if lat and lon:
-        # Fetch weather and AQI string from Open-Meteo APIs
-        report = fetch_weather_report(lat, lon, label)
+        # Fetch weather report and raw metrics from Open-Meteo APIs
+        report, temp, us_aqi, aqi_status = fetch_weather_report(lat, lon, label)
         
         if report:
             print("\n---  GENERATED REPORT ---")
@@ -74,10 +74,10 @@ def run_pipeline():
             # Send mobile push alert via ntfy.sh
             send_notification(report)
 
-            # Log execution to CSV and auto-create data directory if missing
-            log_weather_history(label, "N/A", "N/A", "Report Sent")
+            # Log actual execution metrics to CSV
+            log_weather_history(label, temp, us_aqi, aqi_status)
 
-def log_weather_history(location, temp, humidity, condition):
+def log_weather_history(location, temp, aqi, aqi_status):
     os.makedirs("data", exist_ok=True)
     file_path = "data/weather_history.csv"
     file_exists = os.path.isfile(file_path)
@@ -85,9 +85,9 @@ def log_weather_history(location, temp, humidity, condition):
     with open(file_path, mode="a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         if not file_exists:
-            writer.writerow(["Timestamp", "Location", "Temperature_C", "Humidity_%", "Condition"])
+            writer.writerow(["Timestamp", "Location", "Temperature_C", "US_AQI", "AQI_Status"])
         # Write daily entry
-        writer.writerow([datetime.now().isoformat(), location, temp, humidity, condition])
+        writer.writerow([datetime.now().isoformat(), location, temp, aqi, aqi_status])
 
 if __name__ == "__main__":
     run_pipeline()

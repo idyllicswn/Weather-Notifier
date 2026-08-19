@@ -73,10 +73,8 @@ def fetch_weather_report(latitude,longitude,location):
         f"-> {dates[2]}: Max {max_temps[2]}°C / Min {min_temps[2]}°C"
         )
         logger.info("Successfully formatted weather report.")
-        return summary
+        return summary, temp, us_aqi, aqi_status
 
     except requests.exceptions.RequestException as e:
         logger.error(f"Failed to fetch weather/AQI data: {e}")
-        return None
-
-
+        return None, None, None, None
