@@ -2,23 +2,21 @@ name: Daily Weather Notifier
 
 on:
   schedule:
-    #7:00 AM Nepal Time (01:15 UTC)
+    # 7:00 AM Nepal Time (01:15 UTC)
     - cron: "15 1 * * *"
-
     # 12:00 PM Nepal Time (06:15 UTC)
     - cron: "15 6 * * *"
-
-    #3:00 PM Nepal Time (09:15 UTC)
+    # 3:00 PM Nepal Time (09:15 UTC)
     - cron: "15 9 * * *"
-
     # 7:00 PM Nepal Time (13:15 UTC)
     - cron: "15 13 * * *"
-
   workflow_dispatch:
 
 jobs:
   run-weather-script:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Code
@@ -35,12 +33,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Weather Notifier
-        run: python main.py
-
-      - name: Keepalive Workflow
-        uses: gautamkrishnar/keepalive-workflow@v2
-
-      - name: Run Weather Notifier
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          ntfy_topic: ${{ secrets.NTFY_TOPIC }}
         run: python main.py
 
       - name: Commit Updated Weather History
@@ -48,3 +43,6 @@ jobs:
         with:
           commit_message: "auto: update daily weather history"
           file_pattern: "data/weather_history.csv"
+
+      - name: Keepalive Workflow
+        uses: gautamkrishnar/keepalive-workflow@v2
