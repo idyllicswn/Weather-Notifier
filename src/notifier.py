@@ -4,8 +4,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 def send_notification(message_text):
-    ntfy_topic = "idyllic-weather-alerts-006"
-    ntfy_url = f"https://ntfy.sh/{ntfy_topic}"
+    NTFY_TOPIC = "idyllic-weather-alerts-006"
+    ntfy_url = f"https://ntfy.sh/{NTFY_TOPIC}"
 
     logger.info("Dispatching push alerts to ntfy server . . . ")
 

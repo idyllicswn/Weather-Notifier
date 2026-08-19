@@ -35,7 +35,6 @@ jobs:
       - name: Run Weather Notifier
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-
         run: python main.py
 
       - name: Commit Updated Weather History
